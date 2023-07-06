@@ -7,17 +7,34 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
+import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
+// // const LinkComponent=()=>{
+// //   const navigation = useNavigation();
+// //   const handleLinkPress = () => {
+// //     // Navigate to
+// //     navigation.navigate('Signup');
+// //  }
+// };
 
 function Login() {
   const navigation = useNavigation();
 
+  const handleSubmit = () => {
   const [form, setForm] = useState({
     email: '',
     password: '',
   });
-
+};
+axios
+    .post('http://your-backend-url/submit-form', form)
+    .then((response) => {
+      console.log('Form submitted successfully');
+    })
+    .catch((error) => {
+      console.error('Error submitting form:', error);
+    });
   return (
 <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <View style={styles.container}>
@@ -30,7 +47,6 @@ function Login() {
         <View style={styles.form}>
           <View style={styles.input}>
             <Text style={styles.inputLabel}>Email address</Text>
-
             <TextInput
               autoCapitalize="none"
               autoCorrect={false}
@@ -79,7 +95,9 @@ function Login() {
             onPress={() => navigation.navigate('Menu')}>
             <Text style={styles.formFooter}>
               Don't have an account?{' '}
+              <TouchableOpacity onPress={()=> navigation.navigate('Signup')}>
               <Text style={{ textDecorationLine: 'underline' }}>Sign up</Text>
+              </TouchableOpacity>
             </Text>
           </TouchableOpacity>
         </View>
