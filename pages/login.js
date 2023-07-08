@@ -20,13 +20,12 @@ import { useNavigation } from '@react-navigation/native';
 
 function Login() {
   const navigation = useNavigation();
-
-  const handleSubmit = () => {
+  // const handleSubmit = () => {
   const [form, setForm] = useState({
     email: '',
     password: '',
   });
-};
+// };
 axios
     .post('http://your-backend-url/submit-form', form)
     .then((response) => {
@@ -61,7 +60,6 @@ axios
 
           <View style={styles.input}>
             <Text style={styles.inputLabel}>Password</Text>
-
             <TextInput
               autoCorrect={false}
               onChangeText={password => setForm({ ...form, password })}
