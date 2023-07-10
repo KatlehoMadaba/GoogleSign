@@ -21,20 +21,27 @@ import axios from 'axios';
       email: '',
       password:'',
     });
+    
     const handleSubmit= (fieldName, value) => {
+      // event.preventDefault();
       setForm({
         ...form,
         [fieldName]: value,
       });
+      console.log(form)
+
     };
-  axios
-      .post('', form)
+ function axiosSubmit(event){
+  event.preventDefault();
+      axios
+      .post("http://localhost:1355/post/", form)
       .then((response) => {
         console.log('Form submitted successfully');
       })
       .catch((error) => {
         console.error('Error submitting form:', error);
       });
+ }
     return (
 <View >
 <Text style={styles.text}>Hi please fill in your details to sign up</Text>
@@ -99,7 +106,7 @@ import axios from 'axios';
               value={form.password}
               onChangeText={(value) =>handleSubmit('password', value)}
             />
-        <Button title="Submit" onPress={handleSubmit} />
+        <Button title="Submit" onPress={axiosSubmit} />
 </View>
 </View>
     );

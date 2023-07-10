@@ -14,7 +14,7 @@ var con = mysql.createConnection({
     password:'Fumane@Katleho4', //empty for window
     database: 'wellness'
 });
-var server = app.listen(1349, function(){
+var server = app.listen(1355, function(){
     var host = server.address().address
     var port = server.address().port
     console.log("start");
@@ -23,11 +23,17 @@ con.connect(function(error){
     if(error) console.log(error);
     else console.log("connected");
   });
-  app.post('/user', (req, res) => {
+  app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+  });
+  app.post('/post', (req, res) => {
     // Extract data from the request body
     const { name,surname,username,dateofbirth,email,password } = req.body;
     // Insert data into the database
-    const query1 = 'INSERT INTO signuptable (name,surname,username,dateofbirth,email,password) VALUES (name,surname,username,dateofbirth,email,password)';
+    const query1 = 'INSERT INTO signuptable VALUES (?,?,?,?,?,?)'[name,surname,username,dateofbirth,email,password];
     // Perform any necessary operations
     db.query(query1, [name, surname, username, dateofbirth, email, password], (err, result) => {
         if (err) {
@@ -37,18 +43,22 @@ con.connect(function(error){
             // Perform any necessary operations after successful insertion
             res.json({ message: 'User data inserted successfully' });
           }
-
+        });
   });
-//   app.get('/user', function(req, res){
-//     con.query('select * from signuptable', function(error, rows, fields){
-//           if(error) console.log(error);
+  app.get('/user', function(req, res){
+    con.query('select * from signuptable', function(error, rows, fields){
+          if(error) console.log(error);
   
-//           else{
-//               console.log(rows);
-//               res.send(rows);
+          else{
+              console.log(rows);
+              res.send(rows);
   
-//           }
- 
-// //         }
-// );
-    });
+          }
+
+        }
+);
+
+// app.listen(1354, () => {
+//   console.log('Server is running on port 1354');
+// });
+  });
