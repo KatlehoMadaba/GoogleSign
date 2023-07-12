@@ -2,67 +2,65 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const express = require('express');
 const cors = require('cors');
-
 const app = express();
 
-
-  const sequelize = new Sequelize('wellness', 'Katore', 'RoadToAMilli#21',{
-    host: 'localhost',
-    dialect: 'mysql'
-})
+const sequelize = new Sequelize('wellness', 'Katore', 'RoadToAMilli#21', {
+  host: 'localhost',
+  dialect: 'mysql'
+});
 
 try {
-    sequelize.authenticate();
-    console.log('Connection has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
+  sequelize.authenticate();
+  console.log('Connection has been established successfully.');
+} catch (error) {
+  console.error('Unable to connect to the database:', error);
+}
+
+app.use(cors());
+app.use(express.json());
+
+
+const Device = sequelize.define('MyDevices', {
+  name: DataTypes.STRING,
+  surname: DataTypes.STRING,
+  email: DataTypes.STRING,
+  password: DataTypes.STRING,
+}, {
+  tableName: 'userinfo' 
+});
+
+
+app.post('/device', async (req, res) => {
+  try {
+    const { name, surname, email, password } = req.body;
+    const query = `
+      INSERT INTO userinfo (name, surname, email, password)
+      VALUES ('${name}', '${surname}', '${email}', '${password}')
+    `;
+    const [result] = await sequelize.query(query);
+
+    res.json({
+      success: true,
+      message: 'Device created successfully',
+      result
+    });
+  } catch (err) {
+    res.send(err);
   }
-  app.use(cors());
+});
 
-  const Device = sequelize.define('Device', {
-    id: {
-      type: DataTypes.JSON,
-      primaryKey: true}
-    // },
-    // name: DataTypes.STRING,
-    // surname: DataTypes.STRING,
-    // email: DataTypes.STRING,
-    // password: DataTypes.STRING
-  });
-  app.use(express.json());
-  
-  // Create a new device
-  app.post('/devices', async (req, res) => {
-    try {
-      const device = await Device.create(req.body);
-      res.json({
-        success: true,
-        message: 'Device created successfully',
-        device
-      });
-    } catch (err) {
-      res.send(err);
-    }
-  });
-  
-  // Get all devices
-  app.get('/devices', async (req, res) => {
-    try {
-      const devices = await Device.findAll();
-      res.json(devices);
-    } catch (err) {
-      res.send(err);
-    }
-    // try {
-    // const sql = 'SELECT * FROM userinfo';
-    // Device.query(sql, (err, results) => {
-    //   if (err) throw err;
-    //   res.json(results);
-    //   console.log(results);
-    // });} catch (err) {
-    //     res.send(err);}
+app.get('/devices', async (req, res) => {
+  try {
+    const devices = await sequelize.query('SELECT `name`, `surname`, `email`, `password` FROM `userinfo`', {
+      type: sequelize.QueryTypes.SELECT
+    });
+    res.json(devices);
+    console.log(devices);
+  } catch (err) {
+    res.send(err);
+  }
+});
 
-  });
   
   // Get a device by ID
   app.get('/devices/:id', async (req, res) => {

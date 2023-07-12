@@ -37,9 +37,14 @@ function SignUp() {
     password: '',
   });
 
+  useEffect(()=>{
+    console.log(form)
+  },[form])
+
+
   const handleSubmit = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/devices', {form});
+      const response = await axios.post('http://localhost:3000/device', form);
       console.log(response.data); // Optional: handle the server response
       // Clear form fields after successful submission
     //setForm('')
