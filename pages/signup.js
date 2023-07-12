@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -8,15 +8,47 @@ import {
   TextInput,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 
-function Login() {
+function SignUp() {
   const navigation = useNavigation();
 
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/devices');
+      setData(response.data);
+      console.log(response.data);
+      
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const [form, setForm] = useState({
+    name: '',
+    surname: '',
     email: '',
     password: '',
   });
+
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post('http://localhost:3000/devices', {form});
+      console.log(response.data); // Optional: handle the server response
+      // Clear form fields after successful submission
+    //setForm('')
+    //navigation.navigate('SignUp')
+    console.log("successful")
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
 
   return (
 <View style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -24,10 +56,40 @@ function Login() {
         <View style={styles.header}>
           <Text style={styles.title}>Welcome back!</Text>
 
-          <Text style={styles.subtitle}>Sign in to your account</Text>
+          <Text style={styles.subtitle}>Sign up to your account</Text>
         </View>
 
         <View style={styles.form}>
+        <View style={styles.input}>
+            <Text style={styles.inputLabel}>Name</Text>
+
+            <TextInput
+              autoCapitalize="none"
+              autoCorrect={false}
+              
+              onChangeText={name => setForm({ ...form, name })}
+              placeholder="Name"
+              placeholderTextColor="#6b7280"
+              style={styles.inputControl}
+              value={form.name}
+            />
+          </View>
+
+          <View style={styles.input}>
+            <Text style={styles.inputLabel}>Surname</Text>
+
+            <TextInput
+              autoCapitalize="none"
+              autoCorrect={false}
+              
+              onChangeText={surname => setForm({ ...form, surname })}
+              placeholder="Surname"
+              placeholderTextColor="#6b7280"
+              style={styles.inputControl}
+              value={form.surname}
+            />
+          </View>
+
           <View style={styles.input}>
             <Text style={styles.inputLabel}>Email address</Text>
 
@@ -67,28 +129,31 @@ function Login() {
             </TouchableOpacity> */}
             <TouchableOpacity
           //style={styles.category}
-          onPress={() => navigation.navigate('SignUp')}
+          onPress={() => handleSubmit()}
           >
                 <View style={styles.btn}>
-                <Text style={styles.btnText}>Sign in</Text>
+                <Text style={styles.btnText}>Submit</Text>
               </View>
           </TouchableOpacity>
           </View>
 
+
           <TouchableOpacity
-            onPress={() => navigation.navigate('SignUp')}>
+            onPress={() => navigation.navigate('Menu')}>
             <Text style={styles.formFooter}>
               Don't have an account?{' '}
               <Text style={{ textDecorationLine: 'underline' }}>Sign up</Text>
             </Text>
           </TouchableOpacity>
+
+
         </View>
       </View>
     </View>
   )
 }
 
-export default Login
+export default SignUp;
 
 const styles = StyleSheet.create({
   container: {
