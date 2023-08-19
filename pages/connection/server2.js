@@ -29,6 +29,17 @@ const Device = sequelize.define('MyDevices', {
   tableName: 'userinfo' 
 });
 
+const DeviceQ = sequelize.define('MyDevices', {
+  q1: DataTypes.STRING,
+  q2: DataTypes.STRING,
+  q3: DataTypes.STRING,
+  q4: DataTypes.STRING,
+  q5: DataTypes.STRING,
+  q6: DataTypes.STRING,
+  q7: DataTypes.STRING,
+}, {
+  tableName: 'lifestyle_history' 
+});
 
 app.post('/device', async (req, res) => {
   try {
@@ -44,6 +55,56 @@ app.post('/device', async (req, res) => {
       message: 'Device created successfully',
       result
     });
+  } catch (err) {
+    res.send(err);
+  }
+});
+
+app.post('/question', async (req, res) => {
+  // try {
+  //   const { q1, q2, q3, q4, q5, q6, q7 } = req.body;
+  //   const query = `
+  //     INSERT INTO lifestyle_history (q1, q2, q3, q4, q5, q6, q7)
+  //     VALUES (?, ?, ?, ?, ?, ?, ?)
+  //   `;
+  //   const [result] = await sequelize.query(query, {
+  //     replacements: [q1, q2, q3, q4, q5, q6, q7],
+  //   });
+
+  //   res.json({
+  //     success: true,
+  //     message: 'Data inserted successfully',
+  //     result
+  //   });
+  // } catch (err) {
+  //   res.send(err);
+  // }
+
+  try {
+    const { q1, q2, q3, q4, q5, q6, q7 } = req.body;
+    const query = `
+    INSERT INTO lifestyle_history (q1, q2, q3, q4, q5, q6, q7)
+      VALUES ('${q1}', '${q2}', '${q3}', '${q4}', '${q5}', '${q6}', '${q7}')
+    `;
+    const [result] = await sequelize.query(query);
+
+    res.json({
+      success: true,
+      message: 'Device created successfully',
+      result
+    });
+  } catch (err) {
+    res.send(err);
+  }
+});
+
+app.get('/questions', async (req, res) => {
+  try {
+    const devices = await sequelize.query('SELECT `q1`, `q2`, `q3`, `q4`, `q5`, `q6`, `q7` FROM `lifestyle_history`;', {
+      type: sequelize.QueryTypes.SELECT
+    });
+    res.json(devices);
+    console.log(devices);
   } catch (err) {
     res.send(err);
   }

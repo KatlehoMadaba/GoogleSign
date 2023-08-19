@@ -1,0 +1,37 @@
+[
+    {
+      "id": 1,
+      "question": "Treated for alcohol/drug addiction, please elaborate more if yes",
+      "type": "text"
+    },
+    {
+      "id": 2,
+      "question": "Exercise: Frequency per week ",
+      "type": "text"
+    },
+    {
+      "id": 3,
+      "question": "Duration per occasion",
+      "type":"text"
+    },
+    {
+        "id": 4,
+        "question": "Hobbies: Type",
+        "type": "text"
+      },
+      {
+        "id": 5,
+        "question": "Alcohol consumption: Frequency per week ",
+        "type":"text"
+      },
+      {
+        "id": 6,
+        "question": "Units per occasion",
+        "type": "text"
+      },
+      {
+        "id": 7,
+        "question": "Tobacco Usage: cigarettes per day",
+        "type":"text"
+      }
+  ]
