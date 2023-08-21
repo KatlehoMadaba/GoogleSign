@@ -7,6 +7,7 @@ import Menu from './pages/menu';
 import Questions from './pages/questions';
 import Login from './pages/login';
 import SignUp from './pages/signup';
+import Welcome from './pages/welcome';
 
 
 const Stack = createStackNavigator();
@@ -16,11 +17,10 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name='Welcome' component={Welcome} />
-        <Stack.Screen name='Login' component={Login} />
+        {/* <Stack.Screen name='Login' component={Login} />
         <Stack.Screen name='Menu' component={Menu}/>
         <Stack.Screen name='SignUp' component={SignUp}/>
-      <Stack.Screen name='Questions' component={Questions}/>
-
+        <Stack.Screen name='Questions' component={Questions}/> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
