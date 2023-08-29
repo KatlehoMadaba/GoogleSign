@@ -1,0 +1,165 @@
+[
+    {
+      "id": 1,
+      "question": "Freq. or severe headache",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 2,
+      "question": "Fainting attacks or dizziness",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 3,
+      "question": "Head Injury",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 4,
+      "question": "Blackouts/epilepsy/fits",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 5,
+      "question": "Depression/anxiety or any other nervous or psychological problems",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 6,
+      "question": "Eye or vision problems",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 7,
+      "question": "Spectacles",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 8,
+      "question": "Contact lenses",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 9,
+      "question": "A discharge from either ear",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 10,
+      "question": "Pregnant",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 11,
+      "question": "Tuberculosis",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 12,
+      "question": "Gastro/Intestinal problems",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 13,
+      "question": "Cardio/Vascular problems",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 14,
+      "question": "Sinus problems",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 15,
+      "question": "Muscular/Skeletal problems",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 16,
+      "question": "Back or neck problems",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 17,
+      "question": "Urinary Tract problems",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 18,
+      "question": "Diabetes or Endocrine problems",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 19,
+      "question": "Malignant tumours or cancer",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 20,
+      "question": "Skin disease",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 21,
+      "question": "Sleep disorders",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 22,
+      "question": "Hernias",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 23,
+      "question": "Any Allergies",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 24,
+      "question": "Respiratory problems",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 25,
+      "question": "Arthritis",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 26,
+      "question": "Any other illness or injury",
+      "yesOption": "Y",
+      "noOption": "N"
+    },
+    {
+      "id": 27,
+      "question": "Hearing disorders or deafness",
+      "yesOption": "Y",
+      "noOption": "N"
+    }
+  ]
+  

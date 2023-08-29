@@ -1,38 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import {
-  StyleSheet,
-  SafeAreaView,
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
-} from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native'
+import React, { useState, useEffect } from 'react';
+import { TextInput, TouchableOpacity,Alert } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
-
-function SignUp() {
+const Signup = () => {
   const navigation = useNavigation();
-
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const response = await axios.get('http://localhost:3000/devices');
-      setData(response.data);
-      console.log(response.data);
-      
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const [form, setForm] = useState({
     name: '',
     surname: '',
+    dateofbirth: '',
     email: '',
     password: '',
   });
@@ -41,206 +19,176 @@ function SignUp() {
     console.log(form)
   },[form])
 
+  const handleValidation = () => {
+    if (
+      form.name.trim() === '' ||
+      form.surname.trim() === '' ||
+      form.dateofbirth.trim() === '' ||
+      form.email.trim() === '' ||
+      form.password.trim() === ''
+    ) {
+      Alert.alert('Error', 'Please fill in all fields.');
+    } else {
+      handleSubmit();
+    }
+  };
 
   const handleSubmit = async () => {
     try {
       const response = await axios.post('http://localhost:3000/device', form);
-      console.log('new: ', response.data); // Optional: handle the server response
-      // Clear form fields after successful submission
-    //setForm('')
-    //navigation.navigate('SignUp')
+      console.log('new: ', response.data); 
+
+    Alert.alert('Success', 'You have been successfully signed up.');
+    setForm({
+      name: '',
+      surname: '',
+      dateofbirth: '',
+      email: '',
+      password: '',
+    });
+    navigation.navigate('Menu')
     console.log("successful")
     } catch (error) {
       console.log(error.response.data);
     }
   };
 
+  const imageStyle = {
+    width: 342,
+    height: 239,
+    top: 31,
+    left: 30,
+    position: 'absolute',
+  };
+
   return (
-<View style={{ flex: 1, backgroundColor: '#fff' }}>
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.title}>Welcome back!</Text>
-
-          <Text style={styles.subtitle}>Sign up to your account</Text>
+    <View style={styles.container}>
+      <Image source={require('../images/undraw.png')} style={imageStyle} />
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>Signup</Text>
+        <View style={styles.inputContainer}>
+          <Icon name="user" size={20} color="#4CAF50" style={styles.icon} />
+          <TextInput
+            autoCapitalize="none"
+            autoCorrect={false}
+            style={styles.input}
+            placeholder="Name"
+            onChangeText={name => setForm({ ...form, name })}
+            value={form.name}
+          />
         </View>
-
-        <View style={styles.form}>
-        <View style={styles.input}>
-            <Text style={styles.inputLabel}>Name</Text>
-
-            <TextInput
-              autoCapitalize="none"
-              autoCorrect={false}
-              
-              onChangeText={name => setForm({ ...form, name })}
-              placeholder="Name"
-              placeholderTextColor="#6b7280"
-              style={styles.inputControl}
-              value={form.name}
-            />
-          </View>
-
-          <View style={styles.input}>
-            <Text style={styles.inputLabel}>Surname</Text>
-
-            <TextInput
-              autoCapitalize="none"
-              autoCorrect={false}
-              
-              onChangeText={surname => setForm({ ...form, surname })}
-              placeholder="Surname"
-              placeholderTextColor="#6b7280"
-              style={styles.inputControl}
-              value={form.surname}
-            />
-          </View>
-
-          <View style={styles.input}>
-            <Text style={styles.inputLabel}>Email address</Text>
-
-            <TextInput
-              autoCapitalize="none"
-              autoCorrect={false}
-              keyboardType="email-address"
-              onChangeText={email => setForm({ ...form, email })}
-              placeholder="john@example.com"
-              placeholderTextColor="#6b7280"
-              style={styles.inputControl}
-              value={form.email}
-            />
-          </View>
-
-          <View style={styles.input}>
-            <Text style={styles.inputLabel}>Password</Text>
-
-            <TextInput
-              autoCorrect={false}
-              onChangeText={password => setForm({ ...form, password })}
-              placeholder="********"
-              placeholderTextColor="#6b7280"
-              style={styles.inputControl}
-              secureTextEntry={true}
-              value={form.password}
-            />
-          </View>
-
-          <View style={styles.formAction}>
-            {/* <TouchableOpacity
-              onPress={() => navigation.navigate('Login', {category: 'holistic-focus'})}
-              >
-              <View style={styles.btn}>
-                <Text style={styles.btnText}>Sign in</Text>
-              </View>
-            </TouchableOpacity> */}
-            <TouchableOpacity
-          //style={styles.category}
-          onPress={() => handleSubmit()}
-          >
-                <View style={styles.btn}>
-                <Text style={styles.btnText}>Submit</Text>
-              </View>
-          </TouchableOpacity>
-          </View>
-
-
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Menu')}>
-            <Text style={styles.formFooter}>
-              Don't have an account?{' '}
-              <Text style={{ textDecorationLine: 'underline' }}>Sign up</Text>
-            </Text>
-          </TouchableOpacity>
-
-
+        <View style={styles.inputContainer}>
+          <Icon name="user" size={20} color="#4CAF50" style={styles.icon} />
+          <TextInput
+            autoCapitalize="none"
+            autoCorrect={false}
+            style={styles.input}
+            placeholder="Surname"
+            onChangeText={surname => setForm({ ...form, surname })}
+            value={form.surname}
+          />
         </View>
+        <View style={styles.inputContainer}>
+          <Icon name="calendar" size={20} color="#4CAF50" style={styles.icon} />
+          <TextInput
+            autoCapitalize="none"
+            autoCorrect={false}
+            style={styles.input}
+            placeholder="Date of Birth (yyyy/mm/dd)"
+            onChangeText={dateofbirth => setForm({ ...form, dateofbirth })}
+            value={form.dateofbirth}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Icon name="envelope" size={20} color="#4CAF50" style={styles.icon} />
+          <TextInput
+            autoCapitalize="none"
+            keyboardType="email-address"
+            autoCorrect={false}
+            style={styles.input}
+            placeholder="Email"
+            onChangeText={email => setForm({ ...form, email })}
+            value={form.email}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Icon name="lock" size={20} color="#4CAF50" style={styles.icon} />
+          <TextInput
+            autoCapitalize="none"
+            autoCorrect={false}
+            style={styles.input}
+            placeholder="Password"
+            secureTextEntry
+            onChangeText={password => setForm({ ...form, password })}
+            value={form.password}
+          />
+        </View>
+        <TouchableOpacity 
+      style={styles.btnSignUp}
+      onPress={() => handleValidation()}
+      >
+        <Text style={styles.btnTextSignUp}>SignUp</Text>
+      </TouchableOpacity>
       </View>
     </View>
   )
 }
 
-export default SignUp;
+export default Signup;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 24,
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: 0,
+    backgroundColor: '#FFFFFF',
+    flex: 1,
   },
-  header: {
-    marginVertical: 36,
+  textContainer: {
+    width: 342,
+    height: 534,
+    top: 279,
+    left: 30,
+    position: 'absolute',
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: 'white',
+    padding: 20,
   },
-  form: {
-    marginBottom: 24,
+  text: {
+    fontWeight: 600,
+    fontSize: 30,
+    color: '#141414',
   },
-  formAction: {
-    marginVertical: 24,
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: 'gray',
+    marginBottom: 20,
+    marginTop: 20,
   },
-  formFooter: {
-    fontSize: 15,
-    fontWeight: '500',
-    color: '#222',
-    textAlign: 'center',
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#1d1d1d',
-    marginBottom: 6,
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 15,
-    fontWeight: '500',
-    color: '#929292',
-    textAlign: 'center',
+  icon: {
+    marginRight: 10,
   },
   input: {
-    marginBottom: 16,
+    flex: 1,
+    height: 40,
+    color: '#7D7D7D',
+    padding: 20,
   },
-  inputLabel: {
-    fontSize: 17,
-    fontWeight: '600',
-    color: '#222',
-    marginBottom: 8,
-  },
-  inputControl: {
-    height: 44,
-    backgroundColor: '#f1f5f9',
-    paddingHorizontal: 16,
-    borderRadius: 12,
-    fontSize: 15,
-    fontWeight: '500',
-    color: '#222',
-  },
-  btn: {
+  btnSignUp: {
+    width: 300,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    borderRadius: 50,
+    backgroundColor: '#4CAF50',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 8,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderWidth: 1,
-    backgroundColor: '#007aff',
-    borderColor: '#007aff',
+    marginTop: 5,
   },
-  btnText: {
-    fontSize: 17,
-    lineHeight: 24,
-    fontWeight: '600',
-    color: '#fff',
+  btnTextSignUp: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
-  category:{
-    width: 150,
-    height: 150,
-    margin: 10,
-    borderRadius: 10,
-    backgroundColor: '#FFFFFF',
-    shadowColor: '#000000',
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 5,
-    justifyContent: 'center',
-    alignItems: 'center'
-},
 });

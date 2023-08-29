@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-import questionsData from '../pages/q.json';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
+import questionsData from '../qJSON/lifeStyle.json';
 import axios from 'axios';
 
-const Form = () => {
+const LifeStyleHistory = () => {
   const [formData, setFormData] = useState({});
   const [data, setData] = useState({});
 
   useEffect(() => {
-    // Initialize formData state with empty values for each question
+    
     const initialFormData = {};
     questionsData.forEach((question) => {
       initialFormData["q"+question.id] = "";
@@ -61,9 +61,14 @@ const Form = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.title}>Lifestyle History</Text>
+      <Image
+        source={require('../images/Group82.png')}
+        style={styles.image}
+      />
       {questionsData.map((question) => (
         <View key={question.id} style={styles.questionContainer}>
-          <Text style={styles.questionText}>{question.question}</Text>
+          <Text style={[styles.questionText, styles.questionBackground]}>{question.question}</Text>
           {question.type === 'text' ? (
             <TextInput
               style={styles.input}
@@ -80,18 +85,39 @@ const Form = () => {
           )}
         </View>
       ))}
-      <TouchableOpacity onPress={handleSubmit} style={styles.submitButton}>
+      {/* <TouchableOpacity onPress={handleSubmit} style={styles.submitButton}>
         <Text style={styles.submitButtonText}>Submit</Text>
+      </TouchableOpacity> */}
+      <TouchableOpacity 
+      style={styles.btnSubmit}
+      onPress={() => handleSubmit()}
+      >
+        <Text style={styles.btnTextSubmit}>Submit</Text>
       </TouchableOpacity>
     </ScrollView>
   );
 };
 
+
+export default LifeStyleHistory;
+
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#FFFFFF',
+    flex: 1,
     padding: 30,
-    backgroundColor: '#f0f0f0',
-    
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  image: {
+    width: 308.1499938964844,
+    height: 360.62652587890625,
+    position: 'absolute',
+    top: 94,
+    left: 23,
   },
   questionContainer: {
     marginBottom: 20,
@@ -100,22 +126,32 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 10,
   },
+  questionBackground: {
+    backgroundColor: '#DEF3E4',
+    padding: 5,
+  },
   input: {
     borderColor: 'gray',
     borderWidth: 1,
     padding: 10,
     borderRadius: 5,
   },
-  submitButton: {
-    backgroundColor: 'blue',
-    padding: 10,
-    borderRadius: 5,
+  btnSubmit: {
+    width: 300,
+    alignSelf: 'center', 
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    borderRadius: 50,
+    backgroundColor: '#4CAF50',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 5,
   },
-  submitButtonText: {
+  btnTextSubmit: {
     color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: 18,
   },
 });
-
-export default Form;

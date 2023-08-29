@@ -1,15 +1,40 @@
-import { View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 const Menu = () => {
  
     const navigation = useNavigation()
+
+    const imageTopStyle = {
+        width: 251,
+        height: 254,
+        top: -13,
+        left: -52,
+        position: 'absolute',
+      };
+
+      const imageBottomStyle = {
+        width: 229,
+        height: 209,
+        position: 'absolute',
+        bottom: 0,
+        left: '50%', // Center horizontally
+        transform: [{ rotate: '10deg' }],
+      };
     return (
       <View style={styles.container}>
+        <Image
+            source={require('../images/Blob.png')} // Make sure the path is correct
+            style={imageTopStyle}
+        />
+      <Image
+        source={require('../images/Blob2.png')} // Adjust the image path
+        style={imageBottomStyle}
+      />
         <View style={styles.categoryContainer}>
           <TouchableOpacity
           style={styles.category}
-          onPress={() => navigation.navigate('Questions', {category: 'health-assessment'})}
+          onPress={() => navigation.navigate('HealthAssessment', {category: 'health-assessment'})}
           >
               <Text style={styles.categoryTitle}>Health Assessment</Text>
           </TouchableOpacity>
@@ -56,6 +81,7 @@ const Menu = () => {
               <Text style={styles.categoryTitle}>Measure Employee Progress</Text>
           </TouchableOpacity>
         </View>
+        
       </View>
     )
   
@@ -65,7 +91,8 @@ export default Menu
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
+        backgroundColor: '#FFFFFF',
+        flex: 1,
     },
     categoryContainer:{
         flexDirection: 'row',

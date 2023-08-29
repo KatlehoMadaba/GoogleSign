@@ -29,24 +29,14 @@ const Device = sequelize.define('MyDevices', {
   tableName: 'userinfo' 
 });
 
-const DeviceQ = sequelize.define('MyDevices', {
-  q1: DataTypes.STRING,
-  q2: DataTypes.STRING,
-  q3: DataTypes.STRING,
-  q4: DataTypes.STRING,
-  q5: DataTypes.STRING,
-  q6: DataTypes.STRING,
-  q7: DataTypes.STRING,
-}, {
-  tableName: 'lifestyle_history' 
-});
+
 
 app.post('/device', async (req, res) => {
   try {
-    const { name, surname, email, password } = req.body;
+    const { name, surname, email, password, dateofbirth} = req.body;
     const query = `
-      INSERT INTO userinfo (name, surname, email, password)
-      VALUES ('${name}', '${surname}', '${email}', '${password}')
+      INSERT INTO userinfo (name, surname, email, password, dateofbirth)
+      VALUES ('${name}', '${surname}', '${email}', '${password}', '${dateofbirth}')
     `;
     const [result] = await sequelize.query(query);
 
